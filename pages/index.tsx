@@ -5,7 +5,6 @@ import Head from "next/head";
 
 const Home: NextPage = () => {
     const user = useAuth(false);
-    console.log(user);
     return <MyLayout>Example#1</MyLayout>;
 };
 
