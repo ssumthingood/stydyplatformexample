@@ -5,5 +5,5 @@ interface LayoutProps {
 }
 
 export default function MyLayout({ children }: LayoutProps) {
-    return <div className={cls("w-full bg-purple-300 text-white")}>{children}</div>;
+    return <div className={cls("")}>{children}</div>;
 }
