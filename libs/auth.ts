@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
 export default function useAuth(required: Boolean) {
-    const [user, setUser] = useState(undefined);
+    const [user, setUser] = useState(null);
     const router = useRouter();
 
     const goLogin = () => {
@@ -12,15 +12,11 @@ export default function useAuth(required: Boolean) {
     useEffect(() => {
         if (required) {
             {
-                user === undefined ? userCallback(goLogin) : null;
+                user === null ? goLogin() : null;
+                //왜 두번씩 실행될까...
             }
         }
     }, []);
 
     return { user };
 }
-
-const userCallback = (callback: () => void) => {
-    window.alert("권한 없음!");
-    callback();
-};
