@@ -1,15 +1,26 @@
-import { configureStore } from "@reduxjs/toolkit";
-import { createWrapper } from "next-redux-wrapper";
+import { createStore, applyMiddleware, Middleware, StoreEnhancer } from "redux";
+import rootReducer from "./reducers";
+import { MakeStore, createWrapper, Context } from "next-redux-wrapper";
+import { AnyAction, Store, configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
 
-import reducer from "./modules";
+const bindMiddleware = (middleware: Middleware[]): StoreEnhancer => {
+    if (process.env.NODE_ENV !== "production") {
+        const { composeWithDevTools } = require("redux-devtools-extension");
+        return composeWithDevTools(applyMiddleware(...middleware));
+    }
+    return applyMiddleware(...middleware);
+};
 
-const makeStore = () =>
+// const makeStore: MakeStore<Store<any, AnyAction>> = () => {
+//     const store = createStore(rootReducer, {}, bindMiddleware([]));
+//     return store;
+// };
+
+const makeStore = (context: Context) =>
     configureStore({
-        reducer,
-        middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
+        reducer: rootReducer,
+        middleware: [],
         devTools: process.env.NODE_ENV !== "production",
     });
 
-export const wrapper = createWrapper(makeStore, {
-    debug: process.env.NODE_ENV !== "production",
-});
+export const wrapper = createWrapper<Store<any, AnyAction>>(makeStore, { debug: true });

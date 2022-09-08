@@ -4,38 +4,31 @@ import useAuth from "@libs/auth";
 import type { NextPage } from "next";
 import Head from "next/head";
 import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@libs/store/reducers";
+import { countDown, countUp } from "@libs/store/actions/count";
 
 const Home: NextPage = () => {
     const user = useAuth(false);
 
-    // //redux example
-    // const dispatch = useDispatch();
-    // const value = useSelector(({ counter }) => counter.value);
+    const dispatch = useDispatch();
+    const { value } = useSelector((state: RootState) => state.counter);
 
-    // const plus = useCallback(
-    //     ({ value }:any) => {
-    //         dispatch(counterActions.increment({ value }));
-    //     },
-    //     [dispatch],
-    // );
+    const upEvent = useCallback(() => {
+        dispatch(countUp());
+    }, []);
 
-    // const minus = useCallback(
-    //     ({ value }:any) => {
-    //         dispatch(counterActions.decrement({ value }));
-    //     },
-    //     [dispatch],
-    // );
-    // //redux example
+    const downEvent = useCallback(() => {
+        dispatch(countDown());
+    }, []);
 
     return (
         <MyLayout>
             Example#1
-            {/* <div>
-                <h1>Counter</h1>
-                <button onClick={() => minus({ value })}>-</button>
-                <span>{value}</span>
-                <button onClick={() => plus({ value })}>+</button>
-            </div> */}
+            <div>{value}</div>
+            <div>
+                <button onClick={upEvent}>Up</button>
+                <button onClick={downEvent}>Down</button>
+            </div>
         </MyLayout>
     );
 };
