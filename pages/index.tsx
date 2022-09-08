@@ -24,9 +24,9 @@ const Home: NextPage = () => {
     return (
         <MyLayout>
             Example#1
-            <div>{value}</div>
             <div>
                 <button onClick={upEvent}>Up</button>
+                <div>{value}</div>
                 <button onClick={downEvent}>Down</button>
             </div>
         </MyLayout>
