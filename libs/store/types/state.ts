@@ -1,4 +1,6 @@
 export interface ActionProps {
+    minus: number;
+    plus: number;
     type: string;
 }
 

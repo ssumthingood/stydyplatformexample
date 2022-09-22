@@ -14,11 +14,11 @@ const Home: NextPage = () => {
     const { value } = useSelector((state: RootState) => state.counter);
 
     const upEvent = useCallback(() => {
-        dispatch(countUp());
+        dispatch(countUp(2));
     }, []);
 
     const downEvent = useCallback(() => {
-        dispatch(countDown());
+        dispatch(countDown(2));
     }, []);
 
     return (
